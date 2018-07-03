@@ -179,7 +179,9 @@ return [
         App\Providers\RouteServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         LaravelFCM\FCMServiceProvider::class,
-        'Tymon\JWTAuth\Providers\JWTAuthServiceProvider'
+        'Tymon\JWTAuth\Providers\JWTAuthServiceProvider',
+        Collective\Html\HtmlServiceProvider::class,
+        
 
     ],
 
@@ -233,6 +235,8 @@ return [
         'FCMGroup' => LaravelFCM\Facades\FCMGroup::class,
         'JWTAuth' => 'Tymon\JWTAuth\Facades\JWTAuth',
         'JWTFactory' => 'Tymon\JWTAuth\Facades\JWTFactory',
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
 
     ],
 
