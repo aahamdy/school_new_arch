@@ -8,13 +8,8 @@ class School extends Model
 {
     protected $fillable = array('name');
     
-    public function years()
+    public function values()
     {
-        return $this->hasMany('Models\Year');
-    }
-    
-    public function grades()
-    {
-        return $this->hasMany('Models\Grade');
+        return $this->hasMany('Models\Value');
     }
 }

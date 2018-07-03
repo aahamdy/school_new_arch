@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Fees extends Model
 {
-    protected $fillable = array('grade_id', 'type');
+    protected $fillable = array('type');
 
-    public function school()
+    public function values()
     {
-        return $this->belongsTo('App\Grade');
+        return $this->hasMany('Models\Value');
     }
     
 }

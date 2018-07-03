@@ -6,17 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Year extends Model
 {
-    protected $fillable = array('school_id', 'year');
+    protected $fillable = array('year');
+
+    public function values()
+    {
+        return $this->hasMany('Models\Value');
+    }
     
-
-    public function school()
-    {
-        return $this->belongsTo('App\School');
-    }
-
-    public function grades()
-    {
-        return $this->hasMany('App\Grade');
-    }
-
 }

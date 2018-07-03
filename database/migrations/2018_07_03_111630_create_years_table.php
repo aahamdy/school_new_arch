@@ -15,14 +15,10 @@ class CreateYearsTable extends Migration
     {
         Schema::create('years', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('school_id')->unsigned();          
             $table->integer('year')->unsigned();
             $table->timestamps();
         });
 
-        Schema::table('years', function($table) {
-            $table->foreign('school_id')->references('id')->on('schools');
-        });
     }
 
     /**

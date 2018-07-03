@@ -14,14 +14,9 @@ class CreateFeesTable extends Migration
     public function up()
     {
         Schema::create('fees', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('grade_id')->unsigned();                      
+            $table->increments('id');                 
             $table->string('type');
             $table->timestamps();
-        });
-
-        Schema::table('fees', function($table) {
-            $table->foreign('grade_id')->references('id')->on('grades');
         });
     }
 
