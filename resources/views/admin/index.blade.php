@@ -12,7 +12,7 @@
 <select id="yearfilter">
         <option value="" disabled selected>Select Year</option>
         @foreach($years as $year)
-            <option value="{{$year->id}}">{{$year->year}}</option>
+            <option value="{{$year->year}}">{{$year->year}}</option>
         @endforeach
     </select>
 
@@ -29,7 +29,7 @@
     </thead>
     <tbody>
         @foreach($values as $value)
-            <tr class="{{$value->name}} schoolname" >
+            <tr class="{{$value->name}} {{$value->year}} schoolname yearnumber" >
                 <td> {{$value->id}} </td>
                 <td> {{$value->name}} </td>
                 <td> {{$value->year}} </td>
@@ -61,12 +61,19 @@
 <script language="javascript">
         $(document).ready(function(e) {
           $("#schoolfilter").change(function(){
-            console.log ("corect");
             if($(this).val() != ""){
               $(".schoolname").hide();
               $("." + $(this).val()).show();
             }
           });
+          
+          $("#yearfilter").change(function(){
+            if($(this).val() != ""){
+              $(".yearnumber").hide();
+              $("." + $(this).val()).show();
+            }
+          });
+
         });
 </script>
       
