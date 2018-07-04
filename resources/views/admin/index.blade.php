@@ -2,15 +2,15 @@
 
 @section('content')
 
-<select id="schoolfilter">
-    <option value="" disabled selected>Select School</option>
+<select class="filter">
+    <option value="all">All School</option>
     @foreach($schools as $school)
         <option value="{{$school->name}}">{{$school->name}}</option>
     @endforeach
 </select>
 
-<select id="yearfilter">
-        <option value="" disabled selected>Select Year</option>
+<select class="filter">
+        <option value="all">All Year</option>
         @foreach($years as $year)
             <option value="{{$year->year}}">{{$year->year}}</option>
         @endforeach
@@ -29,7 +29,8 @@
     </thead>
     <tbody>
         @foreach($values as $value)
-            <tr class="{{$value->name}} {{$value->year}} schoolname yearnumber" >
+
+            <tr id ="datatr" class="{{$value->name}} {{$value->year}} schoolname yearnumber all" >
                 <td> {{$value->id}} </td>
                 <td> {{$value->name}} </td>
                 <td> {{$value->year}} </td>
@@ -60,18 +61,18 @@
 
 <script language="javascript">
         $(document).ready(function(e) {
-          $("#schoolfilter").change(function(){
-            if($(this).val() != ""){
-              $(".schoolname").hide();
-              $("." + $(this).val()).show();
-            }
-          });
-          
-          $("#yearfilter").change(function(){
-            if($(this).val() != ""){
-              $(".yearnumber").hide();
-              $("." + $(this).val()).show();
-            }
+
+          $(".filter").change(function(){
+
+            var filters = $.map($(".filter").toArray(), function(e){
+                return $(e).val();  
+            }).join(".");
+            
+            console.log(filters);
+            
+            $("tr#datatr").hide();
+            $("tbody").find("tr." + filters).show();
+
           });
 
         });
