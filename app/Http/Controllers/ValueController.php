@@ -26,7 +26,9 @@ class ValueController extends Controller
     public function index()
     {
         $values = $this->valueService->getRealData();
-        return view('admin.index', compact('values'));
+        $schools = $this->valueService->getSchools();
+        $years = $this->valueService->getYears();
+        return view('admin.index', compact('values','schools', 'years'));
         
     }
 

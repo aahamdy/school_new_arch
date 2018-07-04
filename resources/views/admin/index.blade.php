@@ -1,6 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
+
+<select id="schoolfilter">
+    <option value="" disabled selected>Select School</option>
+    @foreach($schools as $school)
+        <option value="{{$school->name}}">{{$school->name}}</option>
+    @endforeach
+</select>
+
+<select id="yearfilter">
+        <option value="" disabled selected>Select Year</option>
+        @foreach($years as $year)
+            <option value="{{$year->id}}">{{$year->year}}</option>
+        @endforeach
+    </select>
+
 <table class="table">
     <thead>
         <tr>
@@ -14,7 +29,7 @@
     </thead>
     <tbody>
         @foreach($values as $value)
-            <tr>
+            <tr class="{{$value->name}} schoolname" >
                 <td> {{$value->id}} </td>
                 <td> {{$value->name}} </td>
                 <td> {{$value->year}} </td>
@@ -38,4 +53,22 @@
         @endforeach
    </tbody>
 </table> 
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script language="javascript">
+        $(document).ready(function(e) {
+          $("#schoolfilter").change(function(){
+            console.log ("corect");
+            if($(this).val() != ""){
+              $(".schoolname").hide();
+              $("." + $(this).val()).show();
+            }
+          });
+        });
+</script>
+      
+
 @endsection

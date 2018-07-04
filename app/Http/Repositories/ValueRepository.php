@@ -34,8 +34,22 @@ class ValueRepository extends BaseRepository
         ->join('years', 'year_id', '=', 'years.id')
         ->join('grades', 'grade_id', '=', 'grades.id')
         ->join('fees', 'fee_id', '=', 'fees.id')
-        ->selectRaw('values.id , schools.name, years.year, grades.grade, fees.type , values.value, values.school_id, 
-        values.year_id, values.grade_id,values.fee_id')
+        ->selectRaw('values.id , schools.name, years.year, grades.grade, fees.type , values.value')
+        ->get();
+        // , values.school_id, values.year_id, values.grade_id,values.fee_id
+    }
+
+    public function getSchools() {
+
+        return $schools = DB::table('schools')
         ->get();
     }
+    
+    public function getYears() {
+
+        return $years = DB::table('years')
+        ->get();
+
+    }
+
 }

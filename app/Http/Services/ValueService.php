@@ -76,4 +76,12 @@ class ValueService extends BaseService
     public function getRealData(){
         return $this->repository->getData();
     }
+
+    public function getSchools(){
+        return $this->repository->getSchools();
+    }
+
+    public function getYears(){
+        return $this->repository->getYears();
+    }
 }
