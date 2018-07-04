@@ -29,12 +29,13 @@ class ValueRepository extends BaseRepository
 
     public function getData() {
 
-         return $data = DB::table('values')
+        return $data = DB::table('values')
         ->join('schools', 'school_id', '=', 'schools.id')
         ->join('years', 'year_id', '=', 'years.id')
         ->join('grades', 'grade_id', '=', 'grades.id')
         ->join('fees', 'fee_id', '=', 'fees.id')
+        ->selectRaw('values.id , schools.name, years.year, grades.grade, fees.type , values.value, values.school_id, 
+        values.year_id, values.grade_id,values.fee_id')
         ->get();
-        
     }
 }

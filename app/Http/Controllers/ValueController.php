@@ -48,6 +48,7 @@ class ValueController extends Controller
      */
     public function store(Request $request)
     {
+        // return $request->all();
         $this->valueService->create($request->all());
     }
 
@@ -59,9 +60,10 @@ class ValueController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $json = json_decode($request->get('data', []));
-        $data = (array) $json;
+        $data = $request->except(['_method', '_token']);
+        $data = (array) $data;
         $this->valueService->update($id, $data);
+        return redirect('/admin');
     }
 
     /**
