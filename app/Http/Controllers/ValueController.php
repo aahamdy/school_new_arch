@@ -65,6 +65,11 @@ class ValueController extends Controller
     {
         $data = $request->except(['_method', '_token']);
         $data = (array) $data;
+
+        if(empty($data['value'])){
+            $data['value'] = 0;
+        }
+
         $this->valueService->update($id, $data);
         return redirect('/admin');
     }

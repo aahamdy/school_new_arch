@@ -31,23 +31,22 @@
 
     <tbody>
 
+            {{-- @for ($i = 0; $i < $length ; $i = $i+ $feeNumber)
+            <tr id ="datatr" class="{{$values[$i]->name}} {{$values[$i]->year}} all" >
+                <td>{{$values[$i]->grade}}</td>
+                @for ($j = $i; $j < $i+ $feeNumber ; $j++)
+                    <td>{{$values[$j]->value}}</td>
+                @endfor
+            </tr>
+            @endfor       --}}
+
+
         @for ($i = 0; $i < $length ; $i = $i+ $feeNumber)
         <tr id ="datatr" class="{{$values[$i]->name}} {{$values[$i]->year}} all" >
             <td>{{$values[$i]->grade}}</td>
             @for ($j = $i; $j < $i+ $feeNumber ; $j++)
-                <td>{{$values[$j]->value}}</td>
-            @endfor
-        </tr>
-        @endfor               
-   
-
-
-
-        {{-- @foreach($values as $value)
-            <tr id ="datatr" class="{{$value->name}} {{$value->year}}  yearnumber all" >
                 <td>
-
-                    {!! Form::model($value,['method'=>'PATCH', 'action'=> ['ValueController@update', $value->id]]) !!} 
+                    {!! Form::model($values[$j],['method'=>'PATCH', 'action'=> ['ValueController@update', $values[$j]->id]]) !!} 
 
                     <div class="form-group">
                         {!! Form::text('value', null, ['class'=>'form-control']) !!}
@@ -59,38 +58,9 @@
 
                     {!! Form::close() !!}
                 </td>
-                <td>
-
-                        {!! Form::model($value,['method'=>'PATCH', 'action'=> ['ValueController@update', $value->id]]) !!} 
-    
-                        <div class="form-group">
-                            {!! Form::text('value', null, ['class'=>'form-control']) !!}
-                        </div>
-    
-                        <div class="form-group">
-                            {!! Form::submit('Save', ['class'=>'btn btn-primary']) !!}
-                        </div>
-    
-                        {!! Form::close() !!}
-                    </td>
-                    <td>
-
-                            {!! Form::model($value,['method'=>'PATCH', 'action'=> ['ValueController@update', $value->id]]) !!} 
-        
-                            <div class="form-group">
-                                {!! Form::text('value', null, ['class'=>'form-control']) !!}
-                            </div>
-        
-                            <div class="form-group">
-                                {!! Form::submit('Save', ['class'=>'btn btn-primary']) !!}
-                            </div>
-        
-                            {!! Form::close() !!}
-                        </td>
-            </tr>
-        @endforeach --}}
-
-
+            @endfor
+        </tr>
+        @endfor               
 
    </tbody>
 </table> 
