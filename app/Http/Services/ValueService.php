@@ -72,13 +72,9 @@ class ValueService extends BaseService
 
         return $this->repository->filterByCode($filter->PageNumber, $filter->PageSize, $params->code,$filter->SortBy,$filter->SortDirection);
     }
-    
-    public function getRealData(){
-        return $this->repository->getData();
-    }
 
-    public function getDataTwoD(){
-        return $this->repository->getDataTwoD();
+    public function getData(){
+        return $this->repository->getData();
     }
 
     public function getSchools(){

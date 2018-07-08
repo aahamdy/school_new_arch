@@ -26,7 +26,7 @@ class ValueController extends Controller
     public function index()
     {
         // $values = $this->valueService->getRealData();
-        $values = $this->valueService->getDataTwoD();
+        $values = $this->valueService->getData();
         $schools = $this->valueService->getSchools();
         $years = $this->valueService->getYears();
         $fees = $this->valueService->getFees();
