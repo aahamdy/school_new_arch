@@ -17,8 +17,7 @@
     </select>
 
 <?php $length = count($values); ?>
-
-
+<?php $feeNumber = count($fees)?>
     <table class="table">
 
     <thead>
@@ -32,10 +31,10 @@
 
     <tbody>
 
-        @for ($i = 0; $i < $length ; $i = $i+3)
-        <tr id ="datatr" class="{{$values[$i]->name}} {{$values[$i]->year}} schoolname yearnumber all" >
+        @for ($i = 0; $i < $length ; $i = $i+ $feeNumber)
+        <tr id ="datatr" class="{{$values[$i]->name}} {{$values[$i]->year}} all" >
             <td>{{$values[$i]->grade}}</td>
-            @for ($j = $i; $j < $i+3 ; $j++)
+            @for ($j = $i; $j < $i+ $feeNumber ; $j++)
                 <td>{{$values[$j]->value}}</td>
             @endfor
         </tr>
@@ -45,12 +44,7 @@
 
 
         {{-- @foreach($values as $value)
-            <tr id ="datatr" class="{{$value->name}} {{$value->year}} schoolname yearnumber all" >
-                <td> {{$value->grade}} </td>
-                <td> {{$value->value}} </td>
-                
-                
-
+            <tr id ="datatr" class="{{$value->name}} {{$value->year}}  yearnumber all" >
                 <td>
 
                     {!! Form::model($value,['method'=>'PATCH', 'action'=> ['ValueController@update', $value->id]]) !!} 
