@@ -77,11 +77,19 @@ class ValueService extends BaseService
         return $this->repository->getData();
     }
 
+    public function getDataTwoD(){
+        return $this->repository->getDataTwoD();
+    }
+
     public function getSchools(){
         return $this->repository->getSchools();
     }
 
     public function getYears(){
         return $this->repository->getYears();
+    }
+
+    public function getFees(){
+        return $this->repository->getFees();
     }
 }

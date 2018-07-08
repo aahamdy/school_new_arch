@@ -16,26 +16,41 @@
         @endforeach
     </select>
 
-<table class="table">
+<?php $length = count($values); ?>
+
+
+    <table class="table">
+
     <thead>
         <tr>
-            <th scope="col"> Id </th>
-            <th scope="col"> School Name</th>
-            <th scope="col"> Year  </th>
             <th scope="col"> Grade </th>
-            <th scope="col"> Fee Type</th>
-            <th scope="col"> Value </th>
+            @foreach($fees as $fee)
+                <th scope="col">{{$fee->type}}</th>
+            @endforeach
         </tr>
     </thead>
-    <tbody>
-        @foreach($values as $value)
 
+    <tbody>
+
+        @for ($i = 0; $i < $length ; $i = $i+3)
+        <tr id ="datatr" class="{{$values[$i]->name}} {{$values[$i]->year}} schoolname yearnumber all" >
+            <td>{{$values[$i]->grade}}</td>
+            @for ($j = $i; $j < $i+3 ; $j++)
+                <td>{{$values[$j]->value}}</td>
+            @endfor
+        </tr>
+        @endfor               
+   
+
+
+
+        {{-- @foreach($values as $value)
             <tr id ="datatr" class="{{$value->name}} {{$value->year}} schoolname yearnumber all" >
-                <td> {{$value->id}} </td>
-                <td> {{$value->name}} </td>
-                <td> {{$value->year}} </td>
                 <td> {{$value->grade}} </td>
-                <td> {{$value->type}} </td>
+                <td> {{$value->value}} </td>
+                
+                
+
                 <td>
 
                     {!! Form::model($value,['method'=>'PATCH', 'action'=> ['ValueController@update', $value->id]]) !!} 
@@ -50,8 +65,39 @@
 
                     {!! Form::close() !!}
                 </td>
+                <td>
+
+                        {!! Form::model($value,['method'=>'PATCH', 'action'=> ['ValueController@update', $value->id]]) !!} 
+    
+                        <div class="form-group">
+                            {!! Form::text('value', null, ['class'=>'form-control']) !!}
+                        </div>
+    
+                        <div class="form-group">
+                            {!! Form::submit('Save', ['class'=>'btn btn-primary']) !!}
+                        </div>
+    
+                        {!! Form::close() !!}
+                    </td>
+                    <td>
+
+                            {!! Form::model($value,['method'=>'PATCH', 'action'=> ['ValueController@update', $value->id]]) !!} 
+        
+                            <div class="form-group">
+                                {!! Form::text('value', null, ['class'=>'form-control']) !!}
+                            </div>
+        
+                            <div class="form-group">
+                                {!! Form::submit('Save', ['class'=>'btn btn-primary']) !!}
+                            </div>
+        
+                            {!! Form::close() !!}
+                        </td>
             </tr>
-        @endforeach
+        @endforeach --}}
+
+
+
    </tbody>
 </table> 
 
@@ -67,9 +113,7 @@
             var filters = $.map($(".filter").toArray(), function(e){
                 return $(e).val();  
             }).join(".");
-            
-            console.log(filters);
-            
+                        
             $("tr#datatr").hide();
             $("tbody").find("tr." + filters).show();
 

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use \App\Http\Controllers\Controller;
 use Services\ValueService;
-
+use App\Http\Requests\ValuesRequest;
 /**
  * Description of SectionController
  *
@@ -25,11 +25,12 @@ class ValueController extends Controller
 
     public function index()
     {
-        $values = $this->valueService->getRealData();
+        // $values = $this->valueService->getRealData();
+        $values = $this->valueService->getDataTwoD();
         $schools = $this->valueService->getSchools();
         $years = $this->valueService->getYears();
-        return view('admin.index', compact('values','schools', 'years'));
-        
+        $fees = $this->valueService->getFees();
+        return view('admin.index', compact('values','schools', 'years', 'fees'));
     }
 
     /**
@@ -60,7 +61,7 @@ class ValueController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(ValuesRequest $request, $id)
     {
         $data = $request->except(['_method', '_token']);
         $data = (array) $data;
@@ -85,7 +86,7 @@ class ValueController extends Controller
         return \Response::json($this->valueService->getPagedList($filter));
     }
 
-     public function filterByCode(Request $request){
+    public function filterByCode(Request $request){
 
          $filter = (object)$request->all();
          return \Response::json($this->valueService->filterByCode($filter));
