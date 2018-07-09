@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class School extends Model
 {
     protected $fillable = array('name');
-    
-    public function values()
+
+    public function grades()
     {
-        return $this->hasMany('Models\Value');
+        return $this->hasMany('Models\Grade');
     }
 }

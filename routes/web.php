@@ -15,4 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('admin', 'ValueController');
+Route::get('admin', 'ValueController@index');
+Route::PATCH('admin/update', 'ValueController@update');
+
+// Route::resource('admin', 'ValueController');

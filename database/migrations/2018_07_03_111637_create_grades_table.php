@@ -14,11 +14,16 @@ class CreateGradesTable extends Migration
     public function up()
     {
         Schema::create('grades', function (Blueprint $table) {
-            $table->increments('id');                  
+            $table->increments('id');
+            $table->integer('school_id')->unsigned();     
             $table->string('grade');
             $table->timestamps();
         });
 
+        Schema::table('grades', function (Blueprint $table) {
+            $table->foreign('school_id')->references('id')->on('schools');
+
+        });
     }
 
     /**

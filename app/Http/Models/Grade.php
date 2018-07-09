@@ -12,4 +12,9 @@ class Grade extends Model
     {
         return $this->hasMany('Models\Value');
     }
+
+    public function school()
+    {
+        return $this->belongsTo('Models\School');
+    }
 }

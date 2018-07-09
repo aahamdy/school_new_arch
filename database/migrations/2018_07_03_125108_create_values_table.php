@@ -15,7 +15,6 @@ class CreateValuesTable extends Migration
     {
         Schema::create('values', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('school_id')->unsigned();
             $table->integer('year_id')->unsigned();
             $table->integer('grade_id')->unsigned();
             $table->integer('fee_id')->unsigned();
@@ -24,7 +23,6 @@ class CreateValuesTable extends Migration
         });
 
         Schema::table('values', function (Blueprint $table) {
-            $table->foreign('school_id')->references('id')->on('schools');
             $table->foreign('year_id')->references('id')->on('years');
             $table->foreign('grade_id')->references('id')->on('grades');
             $table->foreign('fee_id')->references('id')->on('fees');

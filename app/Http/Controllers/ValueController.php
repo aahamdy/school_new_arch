@@ -25,8 +25,7 @@ class ValueController extends Controller
 
     public function index()
     {
-        // $values = $this->valueService->getRealData();
-        $values = $this->valueService->getData();
+        return $values = $this->valueService->getData();
         $schools = $this->valueService->getSchools();
         $years = $this->valueService->getYears();
         $fees = $this->valueService->getFees();
@@ -61,9 +60,10 @@ class ValueController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(ValuesRequest $request, $id)
+    public function update(ValuesRequest $request)
     {
-        $data = $request->except(['_method', '_token']);
+
+        return $data = $request->except(['_method', '_token']);
         $data = (array) $data;
 
         if(empty($data['value'])){
