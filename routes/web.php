@@ -17,8 +17,7 @@ Route::get('/', function () {
 
 Route::get('admin', 'ValueController@filter');
 
-Route::get('admin/index', 'ValueController@index');
+Route::get('index', 'ValueController@index');
 
 Route::patch('admin', 'ValueController@update');
 
-// Route::resource('admin', 'ValueController');
