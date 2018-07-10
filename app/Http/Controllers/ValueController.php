@@ -35,7 +35,9 @@ class ValueController extends Controller
         $schools = $this->valueService->getSchools();
         $years = $this->valueService->getYears();
         $fees = $this->valueService->getFees();
-        return view('admin.index', compact('values','schools', 'years', 'fees', 'school_id', 'year_id'));
+        $schools_name = School::pluck('name', 'id');
+        $years_number = Year::pluck('year', 'id');
+        return view('admin.index', compact('values','schools', 'years', 'fees', 'school_id', 'year_id','schools_name','years_number'));
     }
 
     public function filter()

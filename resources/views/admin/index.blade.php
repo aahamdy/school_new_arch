@@ -5,6 +5,15 @@
 <?php $length = count($values); ?>
 <?php $feeNumber = count($fees)?>
 
+{!! Form::open(['method'=>'get', 'action'=> 'ValueController@index']) !!}
+
+{!! Form::select('school_id', $schools_name, $school_id) !!}
+{!! Form::select('year_id', $years_number, $year_id) !!}
+
+{!! Form::submit('Filter', ['class' => 'btn btn-sm btn-primary']) !!}
+
+{!! Form::close() !!}
+
 
 {!! Form::open(['method'=>'PATCH', 'action'=> 'ValueController@update']) !!}
 
