@@ -88,7 +88,12 @@ class ValueController extends Controller
                 $data['year_id']=$year_id;
                 $data['grade_id']=$grades[$key];
                 $data['fee_id']=$fee_ids[$key];
-                $data['value']=$values[$key];
+                if($values[$key] == null || ! is_numeric($values[$key])){
+                    $data['value']=0;
+                } else {
+                    $data['value']=$values[$key];
+                }
+                
 
                 $this->valueService->update($id, $data);
 
@@ -96,13 +101,17 @@ class ValueController extends Controller
                 $data['year_id']=$year_id;
                 $data['grade_id']=$grades[$key];
                 $data['fee_id']=$fee_ids[$key];
-                $data['value']=$values[$key];
+                if($values[$key] == null || ! is_numeric($values[$key])){
+                    $data['value']=0;
+                } else {
+                    $data['value']=$values[$key];
+                }
 
                 $this->valueService->create($data);
             }
         }
 
-        return redirect('/admin');
+        return redirect()->back();
     }
 
     /**
