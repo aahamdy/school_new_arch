@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use \App\Http\Controllers\Controller;
+use App\Http\Controllers\Controller;
 use Services\ValueService;
 use App\Http\Requests\ValuesRequest;
+use Models\School;
+use Models\Year;
+use Models\Value;
+use Illuminate\Support\Facades\Input;
 /**
  * Description of SectionController
  *
@@ -24,12 +28,21 @@ class ValueController extends Controller
     }
 
     public function index()
-    {
-        return $values = $this->valueService->getData();
+    {   
+        $school_id = Input::get('school_id', false);
+        $year_id = Input::get('year_id', false);
+        $values = $this->valueService->getData($year_id, $school_id);
         $schools = $this->valueService->getSchools();
         $years = $this->valueService->getYears();
         $fees = $this->valueService->getFees();
-        return view('admin.index', compact('values','schools', 'years', 'fees'));
+        return view('admin.index', compact('values','schools', 'years', 'fees', 'school_id', 'year_id'));
+    }
+
+    public function filter()
+    {
+        $schools = School::pluck('name', 'id');
+        $years = Year::pluck('year', 'id');
+        return view('admin.filter', compact('schools', 'years'));
     }
 
     /**
@@ -50,7 +63,6 @@ class ValueController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request->all();
         $this->valueService->create($request->all());
     }
 
@@ -60,17 +72,34 @@ class ValueController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(ValuesRequest $request)
-    {
+    public function update()
+    {   
+        $values = Input::get('value');
+        $grades = Input::get('grade');
+        $fee_ids = Input::get('fee_id');
+        $ids = Input::get('id');
+        $year_id = Input::get('year_id');
 
-        return $data = $request->except(['_method', '_token']);
-        $data = (array) $data;
+        foreach ($ids as $key => $id){
+            if ($id != Null){
 
-        if(empty($data['value'])){
-            $data['value'] = 0;
+                $data['year_id']=$year_id;
+                $data['grade_id']=$grades[$key];
+                $data['fee_id']=$fee_ids[$key];
+                $data['value']=$values[$key];
+
+                $this->valueService->update($id, $data);
+
+            } else {
+                $data['year_id']=$year_id;
+                $data['grade_id']=$grades[$key];
+                $data['fee_id']=$fee_ids[$key];
+                $data['value']=$values[$key];
+
+                $this->valueService->create($data);
+            }
         }
 
-        $this->valueService->update($id, $data);
         return redirect('/admin');
     }
 

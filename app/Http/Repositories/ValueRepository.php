@@ -27,22 +27,20 @@ class ValueRepository extends BaseRepository
 
     }
 
-    public function getData() {
+    public function getData($year_id, $school_id) {
 
-        // return $data = DB::table('values')
-        // ->join('schools', 'school_id', '=', 'schools.id')
-        // ->join('years', 'year_id', '=', 'years.id')
-        // ->join('grades', 'grade_id', '=', 'grades.id')
-        // ->join('fees', 'fee_id', '=', 'fees.id')
-        // ->selectRaw('values.id , schools.name, years.year, grades.grade, fees.type , values.value')
-        // ->get();
-
-        return $data = DB::table('schools')
-        ->crossJoin('years')
+        return $data = DB::table('fees')
         ->crossJoin('grades')
-        ->crossJoin('fees')
-        ->crossJoin('values')
-        ->selectRaw('schools.id as school_id, years.id as year_id, grades.id as grade_id, fees.id as fee_id, schools.name, years.year, grades.grade, fees.type')
+        ->leftJoin('values', function($join) use ($year_id)
+        {
+            $join->on('values.fee_id', '=', 'fees.id');
+            $join->where('values.year_id', '=',DB::raw("'".$year_id."'"));
+            $join->on('values.grade_id', '=', 'grades.id');
+        })
+        ->where('grades.school_id', '=',DB::raw("'".$school_id."'"))
+        ->selectRaw('values.id as id , grades.id as grade_id, fees.id as fee_id , grades.grade as grade_name, fees.type as fee_type, IFNULL(VALUES.value,0) AS value')
+        ->orderBy('grade_name', 'ASC')
+        ->orderBy('fee_id', 'ASC')
         ->get();
     }
 

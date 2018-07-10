@@ -2,24 +2,18 @@
 
 @section('content')
 
-<select class="filter">
-    <option value="all">All School</option>
-    @foreach($schools as $school)
-        <option value="{{$school->name}}">{{$school->name}}</option>
-    @endforeach
-</select>
+<?php $length = count($values); ?>
+<?php $feeNumber = count($fees)?>
 
-<select class="filter">
-        <option value="all">All Year</option>
-        @foreach($years as $year)
-            <option value="{{$year->year}}">{{$year->year}}</option>
-        @endforeach
-    </select>
 
-{!! Form::open(['method'=>'PATCH', 'action'=> 'ValueController@update']) !!} 
+{!! Form::open(['method'=>'PATCH', 'action'=> 'ValueController@update']) !!}
+
+    <div class="form-group">
+        {!! Form::hidden('year_id', $year_id, ['class'=>'form-control']) !!}
+    </div>
 
     <table class="table">
-
+        
     <thead>
         <tr>
             <th scope="col"> Grade </th>
@@ -31,18 +25,30 @@
 
     <tbody>
 
-        @foreach($values as $value)
-            <tr id ="datatr" class="{{$value->name}} {{$value->year}} all" >
-                <td>{{$value->grade}}</td>
+        @for ($i = 0; $i < $length ; $i = $i+ $feeNumber)
+        <tr>
+            <td>{{$values[$i]->grade_name}}</td>
+            
+            @for ($j = $i; $j < $i+ $feeNumber ; $j++)
 
                 <td>
                     <div class="form-group">
-                        {!! Form::text('value', 0, ['class'=>'form-control']) !!}
+                        {!! Form::text('value[]', $values[$j]->value, ['class'=>'form-control']) !!}
+                    </div>
+                    <div class="form-group">
+                        {!! Form::hidden('grade[]', $values[$j]->grade_id, ['class'=>'form-control']) !!}
+                    </div>
+                    <div class="form-group">
+                        {!! Form::hidden('fee_id[]', $values[$j]->fee_id, ['class'=>'form-control']) !!}
+                    </div>
+                    <div class="form-group">
+                        {!! Form::hidden('id[]', $values[$j]->id, ['class'=>'form-control']) !!}
                     </div>
                 </td>
-            </tr>
+            @endfor
+        </tr>
 
-        @endforeach
+        @endfor
     
    </tbody>
 </table> 
@@ -51,26 +57,5 @@
 </div>
 
 {!! Form::close() !!}
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
-<script language="javascript">
-        $(document).ready(function(e) {
-
-          $(".filter").change(function(){
-
-            var filters = $.map($(".filter").toArray(), function(e){
-                return $(e).val();  
-            }).join(".");
-                        
-            $("tr#datatr").hide();
-            $("tbody").find("tr." + filters).show();
-
-          });
-
-        });
-</script>
-      
 
 @endsection
